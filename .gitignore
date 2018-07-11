@@ -1,3 +1,5 @@
 .vscode/
 db.sqlite3
 virtual/
+*pyc
+*__pycache__/
