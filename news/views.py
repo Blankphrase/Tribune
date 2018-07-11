@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,Http404
 import datetime as dt
-from .models import Article
+from .models import Article, tags
 
 # Create your views here.
 
@@ -13,6 +13,7 @@ def welcome(request):
 def news_of_day(request):
     date = dt.date.today()
     news = Article.todays_news()
+    tagg = tags.todays_tags()
 
     # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
     # day = convert_dates(date)
@@ -23,7 +24,7 @@ def news_of_day(request):
     #         </body>
     #     </html>
     #         '''
-    return render(request, 'all-news/today-news.html', {"date": date, "news":news})
+    return render(request, 'all-news/today-news.html', {"date": date, "news":news, "tagg":tagg})
 
 def past_days_news(request,past_date):
     # Converts data from the string Url
@@ -59,7 +60,7 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'all-news/search.html',{"message":message})
-        
+
 
 
 

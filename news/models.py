@@ -21,9 +21,17 @@ class Editor(models.Model):
 
 class tags(models.Model):
     name = models.CharField(max_length = 30)
+    pub_date = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def todays_tags(cls):
+        # today = dt.date.today()
+        tag = cls.objects.all()
+        return tag
 
 class Article(models.Model):
     title = models.CharField(max_length = 60)
@@ -31,6 +39,8 @@ class Article(models.Model):
     editor = models.ForeignKey(Editor)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
+    article_image = models.ImageField(upload_to = 'articles/')
+
 
     @classmethod
     def todays_news(cls):

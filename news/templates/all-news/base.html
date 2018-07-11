@@ -21,10 +21,37 @@
         {% include "navbar.html" %}
         {% block content %}
             <h1 class="text-center">News for {{date|date:"l d-F Y"}}</h1>
+            <div class="container">
+            
+                {% for news_item in news %}
+            
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <h2 class="text-center"> {{ news_item.title }} </h2>
+                        <p class="text-center"> {{ news_item.post }} </p>
+                        <p class="text-center">By {{ news_item.editor }} </p>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <img src="{{news_item.article_image.url}}" class="img-responsive" alt="Image">
+                    </div>
+            
+                </div>
+            
+                {% empty %}
+                <div class="row">
+                    <h2 class="text-center">There No News Items</h2>
+                </div>
+                {% endfor %}
+                {% for news_tag in tagg %}
+                    <p class="text-center">{{ news_tag.name }} </p>
+                {% endfor %}
+            
+            </div>
         {% endblock %}
         {% block scripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             {% bootstrap_javascript %}
+
         {% endblock %}
     </body>
 </html>
